@@ -1,0 +1,20 @@
+version: "2"
+services:
+  app:
+    container_name: nodejsapp
+    restart: always
+    build: .
+    volumes:
+      - volume:/usr/src/app/routes/data
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+    command: npm start
+  mongo:
+    container_name: mongo
+    image: mongo   
+    ports:
+      - "27017:27017"
+volumes: 
+  volume:

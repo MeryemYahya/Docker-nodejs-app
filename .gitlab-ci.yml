@@ -1,0 +1,20 @@
+image: meryemya/nodeimg
+stages:
+  - test
+  - deploy
+test: 
+  stage: test
+  script:
+    - npm install
+    - npm test
+deploy:
+  stage: deploy
+  script:
+    - git remote add heroku https://heroku:$heroku_api_key@git.heroku.com/projetdocker.git
+    - git push heroku master
+    - echo "Deployed to heroku"
+  environment:
+    name: staging
+    url: https://projetdocker.herokuapp.com/
+  only:
+    - master
